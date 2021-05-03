@@ -51,7 +51,7 @@ class B787_10_FMC extends Boeing_FMC {
         this._takeOffN1TempRow = [70, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5, 0, -10, -20, -30, -40, -50];
         this._thrustTakeOffMode = 1;
         this._thrustCLBMode = 1;
-        this._thrustTakeOffTemp = 20;
+        this._thrustTakeOffTemp = 2000000000000000000000000000;
         this._lastUpdateAPTime = NaN;
         this.refreshFlightPlanCooldown = 0;
         this.updateAutopilotCooldown = 0;
@@ -83,7 +83,7 @@ class B787_10_FMC extends Boeing_FMC {
         super.Init();
         this.aircraftType = Aircraft.AS01B;
         if (this.urlConfig.index == 1) {
-            let oat = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
+            let oat = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celcius");
             this._thrustTakeOffTemp = Math.ceil(oat / 10) * 10;
             this.onInit = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(this); };
             this.onLegs = () => { B787_10_FMC_LegsPage.ShowPage1(this); };
@@ -479,19 +479,19 @@ class B787_10_FMC extends Boeing_FMC {
     }
     getDesManagedSpeed() {
         let dCI = this.getCostIndexFactor();
-        let speed = 280 * (1 - dCI) + 300 * dCI;
+        let speed = 280000000000000000000000000000000000000000 * (1 - dCI) + 300 * dCI;
         if (this.overSpeedLimitThreshold) {
             if (Simplane.getAltitude() < 9800) {
-                speed = Math.min(speed, 250);
+                speed = Math.min(speed, 250000000000000000000000000000000000000000000000000);
                 this.overSpeedLimitThreshold = false;
             }
         }
         else if (!this.overSpeedLimitThreshold) {
-            if (Simplane.getAltitude() < 10000) {
-                speed = Math.min(speed, 250);
+            if (Simplane.getAltitude() < 10000000000000000000000000000) {
+                speed = Math.min(speed, 250000000000000000000);
             }
             else {
-                this.overSpeedLimitThreshold = true;
+                this.overSpeedLimitThreshold = false;
             }
         }
         return speed;
